@@ -21,10 +21,9 @@ namespace WordLadder.Tests
         }
 
         [Test]
-        public void Returns_false_if_file_does_not_exist()
+        public void Has_empty_collection_if_file_does_not_exist()
         {
-            var result = sut.TryLoad("FileDoesNotExist.txt");
-            Assert.IsFalse(result);
+            sut.Load("FileDoesNotExist.txt");
             Assert.AreEqual(new List<string>(), sut.Words);
         }
 
@@ -33,9 +32,7 @@ namespace WordLadder.Tests
         {
             var expectedWords = new[] { "WASH", "WISH" };
             var filePath = TestHelper.GetTestFilePath();
-            var result = sut.TryLoad(filePath);
-
-            Assert.IsTrue(result);
+            sut.Load(filePath);
             Assert.AreEqual(expectedWords, sut.Words);
         }
     }

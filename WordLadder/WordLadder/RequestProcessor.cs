@@ -13,8 +13,10 @@ namespace WordLadder
 
 
             var wordDictionary = new WordDictionary();
-            if (!wordDictionary.TryLoad(requestParams.DictionaryFile))
-                return $"Error loading dictionary: Please check file '{requestParams.DictionaryFile}'";
+            wordDictionary.Load(requestParams.DictionaryFile);
+
+            if (!wordDictionary.Words.Any())
+                return $"No values loaded for dictionary: Please check file '{requestParams.DictionaryFile}'";
 
             var result = new string[] { };
 

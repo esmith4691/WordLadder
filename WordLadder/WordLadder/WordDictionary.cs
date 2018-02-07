@@ -10,7 +10,7 @@ namespace WordLadder
         // TODO: maybe make this a singleton
         internal List<string> Words = new List<string>();
 
-        internal bool TryLoad(string filename)
+        internal void Load(string filename)
         {
             var content = new List<string>();
 
@@ -20,11 +20,10 @@ namespace WordLadder
             }
             catch(Exception)
             {
-                return false;
+                return;
             }
 
             this.Words = GetValidWords(content).Distinct().Select(w => w.ToUpper()).ToList();
-            return true;
         }
 
         private static IEnumerable<string> GetValidWords(IEnumerable<string> content)

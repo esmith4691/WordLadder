@@ -19,7 +19,7 @@ namespace WordLadder.Tests
         {
             var input = "fileNotExists.txt WORD WORD file.txt";
             var output = RequestProcessor.ProcessRequest(input);
-            var expectedError = "Error loading dictionary: Please check file 'fileNotExists.txt'";
+            var expectedError = "No values loaded for dictionary: Please check file 'fileNotExists.txt'";
             Assert.AreEqual(expectedError, output);
         }
 
