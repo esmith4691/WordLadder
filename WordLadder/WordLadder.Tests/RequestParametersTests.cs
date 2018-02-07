@@ -52,9 +52,9 @@ namespace WordLadder.Tests
             get
             {
                 yield return new TestCaseData($"{validFile} {validWord} wait a{validFile}", 
-                        new[] { validFile, validWord, "wait", "a" + validFile });
+                        new[] { validFile, validWord.ToUpper(), "WAIT", "a" + validFile });
                 yield return new TestCaseData($" {validFile} {validWord}   {validWord} {validFile}   ", 
-                        new[] { validFile, validWord, validWord, validFile });
+                        new[] { validFile, validWord.ToUpper(), validWord.ToUpper(), validFile });
             }
         }
     }
