@@ -6,17 +6,12 @@ namespace WordLadder.Tests
     [TestFixture]
     public class RequestProcessorTests
     {
-        static readonly string expectedError = "Incorrect number of parameters: Please check the input and try again:";
-
-        [TestCase("too few params")]
-        [TestCase("some   extra spaces")]
-        [TestCase(" extra at start")]
-        [TestCase("extra at end ")]
-        [TestCase("just one too many params")]
         [Test]
-        public void Error_shown_for_incorrect_number_of_parameters(string input)
+        public void Error_shown_for_incorrect_number_of_parameters()
         {
+            var input = "invalid params";
             var output = RequestProcessor.ProcessRequest(input);
+            var expectedError = "Invalid parameters: Please check the input and try again:";
             Assert.AreEqual(expectedError, output);
         }
     }

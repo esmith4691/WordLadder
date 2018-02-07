@@ -7,9 +7,10 @@ namespace WordLadder
     {
         internal static string ProcessRequest(string input)
         {
-            var args = input.Split(' ').Select(a => a.Trim()).Where(a => !string.IsNullOrEmpty(a));
-            if (args.Count() != 4)
-                return "Incorrect number of parameters: Please check the input and try again:";
+            var requestParams = RequestParameters.TryParseParams(input);
+
+            if (requestParams == null)
+                return "Invalid parameters: Please check the input and try again:";
 
             throw new NotImplementedException();
         }
