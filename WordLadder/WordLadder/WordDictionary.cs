@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WordLadder
 {
     internal class WordDictionary
     {
+        // TODO: maybe make this a singleton
         internal List<string> Words = new List<string>();
 
         internal bool TryLoad(string filename)
