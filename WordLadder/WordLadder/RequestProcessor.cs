@@ -13,6 +13,8 @@ namespace WordLadder
             if (requestParams == null)
                 return "Invalid parameters: Please check the input and try again:";
 
+            if (requestParams.StartWord == requestParams.EndWord || requestParams.StartWord.IsOneLetterDifferent(requestParams.EndWord))
+                return WriteResult(requestParams.ResultFile, new[] { requestParams.StartWord, requestParams.EndWord });
 
             var wordDictionary = new WordDictionary();
             wordDictionary.Load(requestParams.DictionaryFile);
