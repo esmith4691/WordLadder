@@ -53,6 +53,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ExtensionsTests.cs" />
     <Compile Include="RequestParametersTests.cs" />
     <Compile Include="RequestProcessorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

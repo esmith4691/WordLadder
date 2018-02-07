@@ -11,7 +11,9 @@ namespace WordLadder.Tests
     public class RequestParametersTests
     {
         static readonly string validFile = "file.txt";
+        static readonly string invalidFile = "file.csv";
         static readonly string validWord = "word";
+        static readonly string invalidWord = "w_rd";
 
         [Test, TestCaseSource(nameof(InvalidParamsInputs))]
         public void No_parameters_created_for_incorrect_params(string input)
@@ -42,16 +44,10 @@ namespace WordLadder.Tests
             {
                 yield return new TestCaseData($"{validFile} {validWord} {validWord}");
                 yield return new TestCaseData($"{validFile} {validWord} {validWord} {validFile} extra");
-                yield return new TestCaseData($"file.csv {validWord} {validWord} {validFile}");
-                yield return new TestCaseData($"{validFile} {validWord} {validWord} file.csv");
-                yield return new TestCaseData($"{validFile} sml {validWord} {validFile}");
-                yield return new TestCaseData($"{validFile} large {validWord} {validFile}");
-                yield return new TestCaseData($"{validFile} w_rd {validWord} {validFile}");
-                yield return new TestCaseData($"{validFile} w0rd {validWord} {validFile}");
-                yield return new TestCaseData($"{validFile} {validWord} sml {validFile}");
-                yield return new TestCaseData($"{validFile} {validWord} large {validFile}");
-                yield return new TestCaseData($"{validFile} {validWord} w_rd {validFile}");
-                yield return new TestCaseData($"{validFile} {validWord} w0rd {validFile}");
+                yield return new TestCaseData($"{invalidFile} {validWord} {validWord} {validFile}");
+                yield return new TestCaseData($"{validFile} {validWord} {validWord} {invalidFile}");
+                yield return new TestCaseData($"{validFile} {invalidWord} {validWord} {validFile}");
+                yield return new TestCaseData($"{validFile} {validWord} {invalidWord} {validFile}");
             }
         }
 
