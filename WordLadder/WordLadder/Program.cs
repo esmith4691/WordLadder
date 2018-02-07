@@ -19,24 +19,16 @@ namespace WordLadder
             while (true)
             {
                 var input = Console.ReadLine();
-                var result = ProcessRequest(input);
-                Console.WriteLine(result);
-            }
-        }
 
-        internal static string ProcessRequest(string input)
-        {
-            try
-            {
-                var args = input.Split(' ').Select(a => a.Trim()).Where(a => !string.IsNullOrEmpty(a));
-                if (args.Count() != 4)
-                    return "Incorrect number of parameters: Please check the input and try again:";
-
-                throw new NotImplementedException();
-            }
-            catch (Exception ex)
-            {
-                return $"An error has occurred. Please try again:";
+                try
+                {
+                    var result = RequestProcessor.ProcessRequest(input);
+                    Console.WriteLine(result);
+                }
+                catch(Exception)
+                {
+                    Console.WriteLine($"An error has occurred. Please try again:");
+                }
             }
         }
     }

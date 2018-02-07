@@ -4,7 +4,7 @@ using System;
 namespace WordLadder.Tests
 {
     [TestFixture]
-    public class ProgramTests
+    public class RequestProcessorTests
     {
         static readonly string expectedError = "Incorrect number of parameters: Please check the input and try again:";
 
@@ -16,7 +16,7 @@ namespace WordLadder.Tests
         [Test]
         public void Error_shown_for_incorrect_number_of_parameters(string input)
         {
-            var output = Program.ProcessRequest(input);
+            var output = RequestProcessor.ProcessRequest(input);
             Assert.AreEqual(expectedError, output);
         }
     }
