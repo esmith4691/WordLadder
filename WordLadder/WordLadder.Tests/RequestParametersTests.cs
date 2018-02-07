@@ -10,7 +10,10 @@ namespace WordLadder.Tests
     [TestFixture]
     public class RequestParametersTests
     {
-        [Test, TestCaseSource(nameof(InvalidInputs))]
+        static readonly string validFile = "file.txt";
+        static readonly string validWord = "word";
+
+        [Test, TestCaseSource(nameof(InvalidParamsInputs))]
         public void No_parameters_created_for_incorrect_params(string input)
         {
             var result = RequestParameters.TryParseParams(input);
@@ -32,16 +35,23 @@ namespace WordLadder.Tests
             Assert.AreEqual(expectedEndWord, result.EndWord);
             Assert.AreEqual(expectedResultFile, result.ResultFile);
         }
-
-        private static IEnumerable<TestCaseData> InvalidInputs
+        
+        private static IEnumerable<TestCaseData> InvalidParamsInputs
         {
             get
             {
-                yield return new TestCaseData("too few params");
-                yield return new TestCaseData("some   extra spaces");
-                yield return new TestCaseData(" extra at start");
-                yield return new TestCaseData("extra at end ");
-                yield return new TestCaseData("just one too many params");
+                yield return new TestCaseData($"{validFile} {validWord} {validWord}");
+                yield return new TestCaseData($"{validFile} {validWord} {validWord} {validFile} extra");
+                yield return new TestCaseData($"file.csv {validWord} {validWord} {validFile}");
+                yield return new TestCaseData($"{validFile} {validWord} {validWord} file.csv");
+                yield return new TestCaseData($"{validFile} sml {validWord} {validFile}");
+                yield return new TestCaseData($"{validFile} large {validWord} {validFile}");
+                yield return new TestCaseData($"{validFile} w_rd {validWord} {validFile}");
+                yield return new TestCaseData($"{validFile} w0rd {validWord} {validFile}");
+                yield return new TestCaseData($"{validFile} {validWord} sml {validFile}");
+                yield return new TestCaseData($"{validFile} {validWord} large {validFile}");
+                yield return new TestCaseData($"{validFile} {validWord} w_rd {validFile}");
+                yield return new TestCaseData($"{validFile} {validWord} w0rd {validFile}");
             }
         }
 
@@ -49,8 +59,10 @@ namespace WordLadder.Tests
         {
             get
             {
-                yield return new TestCaseData("Correct number of params", new[] { "Correct", "number", "of", "params" });
-                yield return new TestCaseData(" A few   extra spaces   ", new[] { "A", "few", "extra", "spaces" });
+                yield return new TestCaseData($"{validFile} {validWord} wait a{validFile}", 
+                        new[] { validFile, validWord, "wait", "a" + validFile });
+                yield return new TestCaseData($" {validFile} {validWord}   {validWord} {validFile}   ", 
+                        new[] { validFile, validWord, validWord, validFile });
             }
         }
     }

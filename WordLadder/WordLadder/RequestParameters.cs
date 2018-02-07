@@ -15,18 +15,32 @@ namespace WordLadder
 
         internal static RequestParameters TryParseParams(string input)
         {
-            var args = input.Split(' ').Select(a => a.Trim()).Where(a => !string.IsNullOrEmpty(a)).ToArray();
-            if (args.Count() != 4)
+            var args = input.Split(' ').Where(a => !string.IsNullOrWhiteSpace(a)).ToArray();
+            if (!HasCorrectNumberOfParams(args))
+                return null;
+
+            var dictionaryFile = args[0];
+            var startWord = args[1];
+            var endWord = args[2];
+            var resultFile = args[3];
+
+            if (!HasValidFileExtension(dictionaryFile) || !HasValidFileExtension(resultFile))
+                return null;
+
+            if (!startWord.IsValidWord() || !endWord.IsValidWord())
                 return null;
 
             return new RequestParameters
             {
-                DictionaryFile = args[0],
-                StartWord = args[1],
-                EndWord = args[2],
-                ResultFile = args[3],
+                DictionaryFile = dictionaryFile,
+                StartWord = startWord,
+                EndWord = endWord,
+                ResultFile = resultFile
             };
         }
+
+        private static bool HasCorrectNumberOfParams(string[] args) => args.Length == 4;
+        private static bool HasValidFileExtension(string filename) => filename.EndsWith(".txt");
 
         private RequestParameters() { }
     }
