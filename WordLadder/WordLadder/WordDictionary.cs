@@ -24,7 +24,7 @@ namespace WordLadder
                 return false;
             }
 
-            this.Words = GetValidWords(content).Select(w => w.ToUpper()).ToList();
+            this.Words = GetValidWords(content).Distinct().Select(w => w.ToUpper()).ToList();
             return true;
         }
 

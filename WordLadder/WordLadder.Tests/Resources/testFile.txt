@@ -2,5 +2,6 @@
 w sh
 wash
 wish
+wish
 wishy
 was
