@@ -7,7 +7,6 @@ namespace WordLadder
 {
     internal class WordDictionary
     {
-        // TODO: maybe make this a singleton
         internal List<string> Words = new List<string>();
 
         internal void Load(string filename)
