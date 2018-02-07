@@ -30,7 +30,7 @@ namespace WordLadder
             if (!ResultWriter.WriteResult(fileName, result))
                 return $"Error writing results: Please check file '{fileName}'";
 
-            throw new NotImplementedException();
+            return "Success! Results written to file";
         }
     }
 }
