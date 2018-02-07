@@ -20,8 +20,13 @@ namespace WordLadder
 
             var result = new string[] { };
 
-            if(!ResultWriter.WriteResult(requestParams.ResultFile, result))
-                return $"Error writing results: Please check file '{requestParams.ResultFile}'";
+            return WriteResult(requestParams.ResultFile, result);
+        }
+
+        private static string WriteResult(string fileName, IEnumerable<string> result)
+        {
+            if (!ResultWriter.WriteResult(fileName, result))
+                return $"Error writing results: Please check file '{fileName}'";
 
             throw new NotImplementedException();
         }
