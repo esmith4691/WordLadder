@@ -16,8 +16,8 @@ namespace WordLadder
                 return null;
 
             var dictionaryFile = args[0];
-            var startWord = args[1];
-            var endWord = args[2];
+            var startWord = args[1].ToUpper();
+            var endWord = args[2].ToUpper();
             var resultFile = args[3];
 
             if (!HasValidFileExtension(dictionaryFile) || !HasValidFileExtension(resultFile))
