@@ -39,19 +39,11 @@ namespace WordLadder.Tests
         public void Returns_correct_words()
         {
             var expectedWords = new[] { "WASH", "WISH" };
-            var filePath = GetFilePath("testFile.txt");
+            var filePath = TestHelper.GetTestFilePath();
             var result = sut.TryLoad(filePath);
 
             Assert.IsTrue(result);
             Assert.AreEqual(expectedWords, sut.Words);
-        }
-
-        string GetFilePath(string fileName)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var assemblyFileName = assembly.Location;
-            var assemblyDirectory = assemblyFileName.Remove(assemblyFileName.LastIndexOf('\\'));
-            return Path.Combine(assemblyDirectory, "Resources", fileName);
         }
     }
 }
