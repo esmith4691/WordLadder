@@ -16,6 +16,11 @@ namespace WordLadder
             if (!wordDictionary.TryLoad(requestParams.DictionaryFile))
                 return $"Error loading dictionary: Please check file '{requestParams.DictionaryFile}'";
 
+            var result = new string[] { };
+
+            if(!ResultWriter.WriteResult(requestParams.ResultFile, result))
+                return $"Error writing results: Please check file '{requestParams.ResultFile}'";
+
             throw new NotImplementedException();
         }
     }

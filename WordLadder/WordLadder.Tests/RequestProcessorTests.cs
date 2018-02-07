@@ -23,5 +23,14 @@ namespace WordLadder.Tests
             var expectedError = "Error loading dictionary: Please check file 'fileNotExists.txt'";
             Assert.AreEqual(expectedError, output);
         }
+
+        [Test]
+        public void Error_shown_for_result_writing_failure()
+        {
+            var input = $"{TestHelper.GetTestFilePath()} WORD WORD notWritableHere.txt";
+            var output = RequestProcessor.ProcessRequest(input);
+            var expectedError = "Error writing results: Please check file 'notWritableHere.txt'";
+            Assert.AreEqual(expectedError, output);
+        }
     }
 }
