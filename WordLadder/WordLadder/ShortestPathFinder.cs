@@ -16,8 +16,7 @@ namespace WordLadder
         internal ShortestPathFinder(IEnumerable<string> words)
         {
             possibleWords = words.Select(w => w.ToUpper()).ToList();
-            wordsToProcess = new List<string>();
-            chains = new List<WordChain>();
+            chainsToProcess = new List<WordChain>();
         }
 
         internal IEnumerable<string> FindShortestPath(string startWord, string endWord)
@@ -25,43 +24,34 @@ namespace WordLadder
             startWord = startWord.ToUpper();
             endWord = endWord.ToUpper();
 
-            wordsToProcess.Add(startWord);
-            chains.Add(new WordChain(startWord, startWord));
+            chainsToProcess.Add(new WordChain(startWord, startWord));
             possibleWords.Remove(startWord);
 
-            while (wordsToProcess.Any())
+            while (chainsToProcess.Any())
             {
-                var currentWord = wordsToProcess.First();
+                var currentChain = chainsToProcess.First();
+                var currentWord = currentChain.EndWord;
 
                 var forwardSteps = GetPossibleNextWords(currentWord).ToList();
 
                 if (forwardSteps.Contains(endWord))
-                    return GetRouteTo(currentWord).Union(new[] { endWord });
+                    return new WordChain(currentChain,endWord).Path;
 
-                CreateChains(currentWord, forwardSteps);
+                var newChains = CreateChains(currentChain, forwardSteps);
 
                 foreach(var word in forwardSteps)
                     possibleWords.Remove(word);
 
-                wordsToProcess.AddRange(forwardSteps);
-                wordsToProcess.RemoveAt(0);
+                chainsToProcess.AddRange(newChains);
+                chainsToProcess.RemoveAt(0);
             }
 
             return new List<string>();
         }
 
-        private void CreateChains(string startWord, IEnumerable<string> nextSteps)
+        private IEnumerable<WordChain> CreateChains(WordChain currentChain, IEnumerable<string> nextSteps)
         {
-            var chainToUpdate = chains.First(c => c.EndWord == startWord);
-
-            foreach (var word in nextSteps)
-                chainToUpdate.AddWordToChain(word);
-        }
-
-        private IEnumerable<string> GetRouteTo(string word)
-        {
-            // TODO - this query is also above, find a way of not needing to perform this
-            return chains.First(c => c.EndWord == word).Path;
+            return nextSteps.Select(word => new WordChain(currentChain,word));
         }
 
         private IEnumerable<string> GetPossibleNextWords(string word)

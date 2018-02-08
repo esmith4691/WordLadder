@@ -18,7 +18,14 @@ namespace WordLadder
             AddWordToChain(endWord);
         }
 
-        internal void AddWordToChain(string word)
+        internal WordChain(WordChain existingChain, string endWord)
+        {
+            EndWord = existingChain.EndWord;
+            Path = new List<string>(existingChain.Path);
+            AddWordToChain(endWord);
+        }
+
+        private void AddWordToChain(string word)
         {
             if (EndWord == word)
                 return;

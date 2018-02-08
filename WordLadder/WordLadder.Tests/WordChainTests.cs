@@ -32,20 +32,20 @@ namespace WordLadder.Tests
         public void Adds_another_word_correctly()
         {
             var sut = new WordChain("word", "anotherWord");
-            sut.AddWordToChain("finalWord");
+            var result = new WordChain(sut,"finalWord");
 
-            Assert.AreEqual("finalWord", sut.EndWord);
-            Assert.AreEqual(new[] { "word", "anotherWord", "finalWord" }, sut.Path);
+            Assert.AreEqual("finalWord", result.EndWord);
+            Assert.AreEqual(new[] { "word", "anotherWord", "finalWord" }, result.Path);
         }
 
         [Test]
         public void Adds_another_word_correctly_if_word_is_already_end_word()
         {
             var sut = new WordChain("word", "anotherWord");
-            sut.AddWordToChain("anotherWord");
+            var result = new WordChain(sut, "anotherWord");
 
-            Assert.AreEqual("anotherWord", sut.EndWord);
-            Assert.AreEqual(new[] { "word", "anotherWord" }, sut.Path);
+            Assert.AreEqual("anotherWord", result.EndWord);
+            Assert.AreEqual(new[] { "word", "anotherWord" }, result.Path);
         }
     }
 }
