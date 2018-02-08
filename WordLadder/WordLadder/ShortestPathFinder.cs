@@ -10,12 +10,14 @@ namespace WordLadder
     {
         private List<string> possibleWords;
         private List<string> wordsToProcess;
+        private List<WordChain> chains;
 
         private ShortestPathFinder() { }
         internal ShortestPathFinder(IEnumerable<string> words)
         {
             possibleWords = words.Select(w => w.ToUpper()).ToList();
             wordsToProcess = new List<string>();
+            chains = new List<WordChain>();
         }
 
         internal IEnumerable<string> FindShortestPath(string startWord, string endWord)
@@ -35,7 +37,7 @@ namespace WordLadder
                 if (forwardSteps.Contains(endWord))
                     return GetRouteTo(currentWord).Union(new[] { endWord });
 
-                CreateChains(forwardSteps);
+                CreateChains(currentWord, forwardSteps);
 
                 foreach(var word in forwardSteps)
                     possibleWords.Remove(word);
@@ -47,9 +49,15 @@ namespace WordLadder
             return new List<string>();
         }
 
-        private void CreateChains(IEnumerable<string> nextSteps)
+        private void CreateChains(string startWord, IEnumerable<string> nextSteps)
         {
-            throw new NotImplementedException();
+            var chainToUpdate = chains.FirstOrDefault(c => c.EndWord == startWord);
+
+            if (chainToUpdate == null)
+                chains.AddRange(nextSteps.Select(word => new WordChain(startWord, word)));
+            else
+                foreach (var word in nextSteps)
+                    chainToUpdate.AddWordToChain(word);
         }
 
         private IEnumerable<string> GetRouteTo(string word)
