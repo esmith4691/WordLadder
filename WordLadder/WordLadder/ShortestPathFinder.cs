@@ -62,7 +62,8 @@ namespace WordLadder
 
         private IEnumerable<string> GetRouteTo(string word)
         {
-            throw new NotImplementedException();
+            // TODO - this query is also above, find a way of not needing to perform this
+            return chains.FirstOrDefault(c => c.EndWord == word)?.Path ?? Enumerable.Empty<string>();
         }
 
         private IEnumerable<string> GetPossibleNextWords(string word)
