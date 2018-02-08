@@ -16,10 +16,8 @@ namespace WordLadder
             if (requestParams.StartWord == requestParams.EndWord || requestParams.StartWord.IsOneLetterDifferent(requestParams.EndWord))
                 return WriteResult(requestParams.ResultFile, new[] { requestParams.StartWord, requestParams.EndWord });
 
-            var wordDictionary = new WordDictionary();
-            wordDictionary.Load(requestParams.DictionaryFile);
-
-            if (!wordDictionary.Words.Any())
+            var words = FileHelper.LoadWordsFrom(requestParams.DictionaryFile);
+            if (!words.Any())
                 return $"No values loaded for dictionary: Please check file '{requestParams.DictionaryFile}'";
 
             var result = new string[] { };
@@ -27,11 +25,10 @@ namespace WordLadder
             return WriteResult(requestParams.ResultFile, result);
         }
 
-        private static string WriteResult(string fileName, IEnumerable<string> result)
+        private static string WriteResult(string filename, IEnumerable<string> content)
         {
-            if (!ResultWriter.WriteResult(fileName, result))
-                return $"Error writing results: Please check file '{fileName}'";
-
+            if(!FileHelper.TryWriteResult(filename, content))
+                return $"Error writing results: Please check file '{filename}'";
             return "Success! Results written to file";
         }
     }
