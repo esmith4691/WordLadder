@@ -8,14 +8,14 @@ namespace WordLadder
 {
     internal sealed class ShortestPathFinder
     {
-        private HashSet<string> processedWords = new HashSet<string>();
         private List<WordChain> chainsToProcess = new List<WordChain>();
         private Dictionary<string, List<string>> wordBuckets = new Dictionary<string, List<string>>();
+        private List<string> possibleWords;
 
         private ShortestPathFinder() { }
         internal ShortestPathFinder(IEnumerable<string> words)
         {
-            FillBuckets(FilterToValidWords(words).ToList());
+            possibleWords = FilterToValidWords(words).ToList();
         }
 
         internal static IEnumerable<string> FilterToValidWords(IEnumerable<string> words)
@@ -29,7 +29,7 @@ namespace WordLadder
             endWord = endWord.ToUpper();
 
             chainsToProcess.Add(new WordChain(startWord, startWord));
-            processedWords.Add(startWord);
+            possibleWords.Remove(startWord);
 
             while (chainsToProcess.Any())
             {
@@ -42,42 +42,12 @@ namespace WordLadder
                 CreateChains(currentChain, forwardSteps);
 
                 foreach(var word in forwardSteps)
-                    processedWords.Add(word);
-
+                    possibleWords.Remove(word);
+                    
                 chainsToProcess.RemoveAt(0);
             }
 
             return new List<string>();
-        }
-
-        private void FillBuckets(IEnumerable<string> words)
-        {
-            var arrWords = words.ToArray();
-
-            for(var j = 0; j < arrWords.Length; j++)
-            {
-                var word = arrWords[j];
-
-                for (var i = 0; i < word.Length; i++)
-                {
-                    var bucketKey = GetBucketKey(word, i);
-                    var bucketWords = new List<string>();
-
-                    if (wordBuckets.ContainsKey(bucketKey))
-                        wordBuckets[bucketKey].Add(word);
-                    else
-                        wordBuckets[bucketKey] = new List<string> { word };
-                }
-            }
-
-            var biggestBucket = wordBuckets.OrderByDescending(b => b.Value.Count).First();
-        }
-
-        private string GetBucketKey(string word, int index)
-        {
-            var sb = new StringBuilder(word);
-            sb[index] = '_';
-            return sb.ToString();
         }
 
         private void CreateChains(WordChain currentChain, IEnumerable<string> nextSteps)
@@ -87,13 +57,7 @@ namespace WordLadder
 
         private IEnumerable<string> GetPossibleNextWords(string word)
         {
-            var bucketKeys = word.ToCharArray().Select((n, i) => GetBucketKey(word, i));
-            return bucketKeys.SelectMany(k => GetUnprocessedWordsFromBucket(k)).Distinct().Except(new[] { word });
-        }
-
-        private IEnumerable<string> GetUnprocessedWordsFromBucket(string bucketKey)
-        {
-            return wordBuckets[bucketKey].Except(processedWords);
+            return possibleWords.Where(w => word.IsOneLetterDifferent(w));
         }
     }
 }
