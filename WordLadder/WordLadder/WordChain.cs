@@ -13,12 +13,16 @@ namespace WordLadder
 
         internal WordChain(string startWord, string endWord)
         {
-            EndWord = endWord;
-            Path = new List<string> { startWord, endWord };
+            EndWord = startWord;
+            Path = new List<string> { startWord };
+            AddWordToChain(endWord);
         }
 
         internal void AddWordToChain(string word)
         {
+            if (EndWord == word)
+                return;
+
             EndWord = word;
             Path.Add(word);
         }
