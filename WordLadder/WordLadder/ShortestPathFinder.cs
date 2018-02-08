@@ -17,6 +17,7 @@ namespace WordLadder
             possibleWords = words.Select(w => w.ToUpper()).ToList();
             wordsToProcess = new List<string>();
         }
+
         internal IEnumerable<string> FindShortestPath(string startWord, string endWord)
         {
             startWord = startWord.ToUpper();
@@ -58,7 +59,7 @@ namespace WordLadder
 
         private IEnumerable<string> GetPossibleNextWords(string word)
         {
-            throw new NotImplementedException();
+            return possibleWords.Where(w => word.IsOneLetterDifferent(w)); // TODO - this is going to be very slow for a big set
         }
     }
 }
