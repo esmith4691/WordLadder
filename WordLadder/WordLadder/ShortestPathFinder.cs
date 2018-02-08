@@ -58,12 +58,10 @@ namespace WordLadder
                     var bucketKey = GetBucketKey(word, i);
                     var bucketWords = new List<string>();
 
-                    List<string> existingWords;
-                    if (wordBuckets.TryGetValue(bucketKey, out existingWords))
-                        bucketWords.AddRange(existingWords);
-
-                    bucketWords.Add(word);
-                    wordBuckets[bucketKey] = bucketWords;
+                    if (wordBuckets.ContainsKey(bucketKey))
+                        wordBuckets[bucketKey].Add(word);
+                    else
+                        wordBuckets[bucketKey] = new List<string> { word };
                 }
             }
         }
