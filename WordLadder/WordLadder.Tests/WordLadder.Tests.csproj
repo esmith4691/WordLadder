@@ -60,6 +60,7 @@
     <Compile Include="FileHelperTests.cs" />
     <Compile Include="ShortestPathFinderTests.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="WordChainTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
