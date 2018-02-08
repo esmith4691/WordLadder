@@ -9,8 +9,7 @@ namespace WordLadder
     internal sealed class ShortestPathFinder
     {
         private List<string> possibleWords;
-        private List<string> wordsToProcess;
-        private List<WordChain> chains;
+        private List<WordChain> chainsToProcess;
 
         private ShortestPathFinder() { }
         internal ShortestPathFinder(IEnumerable<string> words)
