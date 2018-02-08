@@ -46,10 +46,19 @@ namespace WordLadder.Tests
         }
 
         [Test]
+        public void Error_shown_when_no_path_exists()
+        {
+            var resultsPath = GetValidOutputPath();
+            var input = $"{TestHelper.GetTestFilePath()} wash path {resultsPath}";
+            var output = RequestProcessor.ProcessRequest(input);
+            var expectedError = "No path found between WASH and PATH";
+            Assert.AreEqual(expectedError, output);
+        }
+
+        [Test]
         public void Results_written_correctly_for_matching_words()
         {
-            var resultsPath = Path.Combine(TestHelper.GetAssemblyDirectory(), "output", "results.txt");
-
+            var resultsPath = GetValidOutputPath();
             var input = $"{TestHelper.GetTestFilePath()} word word {resultsPath}";
             var output = RequestProcessor.ProcessRequest(input);
 
@@ -63,8 +72,7 @@ namespace WordLadder.Tests
         [Test]
         public void Results_written_correctly_for_words_with_one_letter_different()
         {
-            var resultsPath = Path.Combine(TestHelper.GetAssemblyDirectory(), "output", "results.txt");
-
+            var resultsPath = GetValidOutputPath();
             var input = $"{TestHelper.GetTestFilePath()} word ward {resultsPath}";
             var output = RequestProcessor.ProcessRequest(input);
 
@@ -74,5 +82,21 @@ namespace WordLadder.Tests
             var writtenContent = File.ReadAllLines(resultsPath);
             Assert.AreEqual(new[] { "WORD", "WARD" }, writtenContent);
         }
+
+        [Test]
+        public void Results_written_correctly_for_words_with_one_several_different()
+        {
+            var resultsPath = GetValidOutputPath();
+            var input = $"{TestHelper.GetTestFilePath()} wash pipe {resultsPath}";
+            var output = RequestProcessor.ProcessRequest(input);
+
+            var expectedMessage = "Success! Results written to file";
+            Assert.AreEqual(expectedMessage, output);
+
+            var writtenContent = File.ReadAllLines(resultsPath);
+            Assert.AreEqual(new[] { "WASH", "WISH", "WISE", "WIPE", "PIPE" }, writtenContent);
+        }
+
+        private string GetValidOutputPath() => Path.Combine(TestHelper.GetAssemblyDirectory(), "output", "results.txt");
     }
 }

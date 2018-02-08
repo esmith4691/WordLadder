@@ -20,7 +20,9 @@ namespace WordLadder
             if (!words.Any())
                 return $"No values loaded for dictionary: Please check file '{requestParams.DictionaryFile}'";
 
-            var result = new string[] { };
+            var result = new ShortestPathFinder(words).FindShortestPath(requestParams.StartWord, requestParams.EndWord);
+            if (!result.Any())
+                return $"No path found between {requestParams.StartWord} and {requestParams.EndWord}";
 
             return WriteResult(requestParams.ResultFile, result);
         }

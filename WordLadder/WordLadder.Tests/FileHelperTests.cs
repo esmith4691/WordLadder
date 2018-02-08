@@ -43,7 +43,7 @@ namespace WordLadder.Tests
         [Test]
         public void Returns_correct_words()
         {
-            var expectedWords = new[] { "wash", "wish" };
+            var expectedWords = new[] { "wash", "wish", "wise", "wipe", "pipe" };
             var filePath = TestHelper.GetTestFilePath();
             var words = FileHelper.LoadWordsFrom(filePath);
             Assert.AreEqual(expectedWords, words);
