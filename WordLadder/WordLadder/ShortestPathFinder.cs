@@ -29,9 +29,7 @@ namespace WordLadder
             while (chainsToProcess.Any())
             {
                 var currentChain = chainsToProcess.First();
-                var currentWord = currentChain.EndWord;
-
-                var forwardSteps = GetPossibleNextWords(currentWord).ToList();
+                var forwardSteps = GetPossibleNextWords(currentChain.EndWord).ToList();
 
                 if (forwardSteps.Contains(endWord))
                     return new WordChain(currentChain,endWord).Path;
