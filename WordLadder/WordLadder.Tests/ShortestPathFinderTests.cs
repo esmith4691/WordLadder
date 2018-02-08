@@ -60,5 +60,26 @@ namespace WordLadder.Tests
 
             Assert.AreEqual(new[] { "WORD", "WARD", "CARD", "CURD" }, result);
         }
+
+        [Test]
+        public void Performance_test()
+        {
+            var sw = new Stopwatch();
+
+            var words = File.ReadLines(TestHelper.GetProvidedTestFilePath());
+
+            sw.Start();
+
+            var sut = new ShortestPathFinder(words);
+
+            var result = sut.FindShortestPath("mail", "xxxx");
+
+            sw.Stop();
+
+            var timeTaken = sw.Elapsed;
+
+            Assert.Less(timeTaken, new TimeSpan(0, 0, 1));
+        }
+       
     }
 }

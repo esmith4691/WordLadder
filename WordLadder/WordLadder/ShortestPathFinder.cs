@@ -69,6 +69,8 @@ namespace WordLadder
                         wordBuckets[bucketKey] = new List<string> { word };
                 }
             }
+
+            var biggestBucket = wordBuckets.OrderByDescending(b => b.Value.Count).First();
         }
 
         private string GetBucketKey(string word, int index)

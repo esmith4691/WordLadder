@@ -13,5 +13,6 @@ namespace WordLadder.Tests
         }
 
         internal static string GetTestFilePath() => Path.Combine(TestHelper.GetAssemblyDirectory(), "Resources", "testFile.txt");
+        internal static string GetProvidedTestFilePath() => Path.Combine(TestHelper.GetAssemblyDirectory(), "Resources", "words-english.txt");
     }
 }
