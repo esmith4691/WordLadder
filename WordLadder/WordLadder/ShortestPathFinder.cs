@@ -26,6 +26,7 @@ namespace WordLadder
             endWord = endWord.ToUpper();
 
             wordsToProcess.Add(startWord);
+            chains.Add(new WordChain(startWord, startWord));
             possibleWords.Remove(startWord);
 
             while (wordsToProcess.Any())
@@ -51,19 +52,16 @@ namespace WordLadder
 
         private void CreateChains(string startWord, IEnumerable<string> nextSteps)
         {
-            var chainToUpdate = chains.FirstOrDefault(c => c.EndWord == startWord);
+            var chainToUpdate = chains.First(c => c.EndWord == startWord);
 
-            if (chainToUpdate == null)
-                chains.AddRange(nextSteps.Select(word => new WordChain(startWord, word)));
-            else
-                foreach (var word in nextSteps)
-                    chainToUpdate.AddWordToChain(word);
+            foreach (var word in nextSteps)
+                chainToUpdate.AddWordToChain(word);
         }
 
         private IEnumerable<string> GetRouteTo(string word)
         {
             // TODO - this query is also above, find a way of not needing to perform this
-            return chains.FirstOrDefault(c => c.EndWord == word)?.Path ?? Enumerable.Empty<string>();
+            return chains.First(c => c.EndWord == word).Path;
         }
 
         private IEnumerable<string> GetPossibleNextWords(string word)
