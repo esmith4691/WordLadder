@@ -47,9 +47,13 @@ namespace WordLadder
 
         private void FillBuckets(IEnumerable<string> words)
         {
-            foreach(var word in words)
+            var arrWords = words.ToArray();
+
+            for(var j = 0; j < arrWords.Length; j++)
             {
-                for (var i = 0; i < word.Length; i++) 
+                var word = arrWords[j];
+
+                for (var i = 0; i < word.Length; i++)
                 {
                     var bucketKey = GetBucketKey(word, i);
                     var bucketWords = new List<string>();
