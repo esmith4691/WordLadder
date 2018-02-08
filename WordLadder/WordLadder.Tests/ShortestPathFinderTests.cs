@@ -10,18 +10,46 @@ namespace WordLadder.Tests
     [TestFixture]
     public class ShortestPathFinderTests
     {
-        ShortestPathFinderTests sut;
-
         [Test]
-        public void CanInstantiate()
+        public void Can_instantiate()
         {
             Assert.DoesNotThrow(() => new ShortestPathFinder(new [] { "word", "ward", "card", "care" }));
         }
 
         [Test]
-        public void CanInstantiateWithEmptyCollection()
+        public void Can_instantiate_with_empty_collection()
         {
             Assert.DoesNotThrow(() => new ShortestPathFinder(new string[] { }));
+        }
+
+        [Test]
+        public void Returns_empty_collection_when_no_path()
+        {
+            var sut = new ShortestPathFinder(new[] { "word", "ward", "card", "care" });
+
+            var result = sut.FindShortestPath("word", "xxxx");
+
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public void Returns_correct_collection_when_path_exists()
+        {
+            var sut = new ShortestPathFinder(new[] { "word", "ward", "card", "care" });
+
+            var result = sut.FindShortestPath("word", "care");
+
+            Assert.AreEqual(new[] { "WORD", "WARD", "CARD", "CARE" }, result);
+        }
+
+        [Test]
+        public void Returns_shortest_collection_when_path_exists()
+        {
+            var sut = new ShortestPathFinder(new[] { "word", "ward", "card", "care", "cure", "curd" });
+
+            var result = sut.FindShortestPath("word", "curd");
+
+            Assert.AreEqual(new[] { "WORD", "WARD", "CARD", "CURD" }, result);
         }
     }
 }

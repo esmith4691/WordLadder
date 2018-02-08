@@ -32,7 +32,7 @@ namespace WordLadder
             {
                 var currentWord = wordsToProcess.First();
 
-                var forwardSteps = GetPossibleNextWords(currentWord);
+                var forwardSteps = GetPossibleNextWords(currentWord).ToList();
 
                 if (forwardSteps.Contains(endWord))
                     return GetRouteTo(currentWord).Union(new[] { endWord });
