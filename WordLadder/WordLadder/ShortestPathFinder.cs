@@ -36,12 +36,11 @@ namespace WordLadder
                 if (forwardSteps.Contains(endWord))
                     return new WordChain(currentChain,endWord).Path;
 
-                var newChains = CreateChains(currentChain, forwardSteps);
+                CreateChains(currentChain, forwardSteps);
 
                 foreach(var word in forwardSteps)
                     processedWords.Add(word);
 
-                chainsToProcess.AddRange(newChains);
                 chainsToProcess.RemoveAt(0);
             }
 
@@ -74,9 +73,9 @@ namespace WordLadder
             return sb.ToString();
         }
 
-        private IEnumerable<WordChain> CreateChains(WordChain currentChain, IEnumerable<string> nextSteps)
+        private void CreateChains(WordChain currentChain, IEnumerable<string> nextSteps)
         {
-            return nextSteps.Select(word => new WordChain(currentChain,word));
+            chainsToProcess.AddRange(nextSteps.Select(word => new WordChain(currentChain,word)));
         }
 
         private IEnumerable<string> GetPossibleNextWords(string word)
