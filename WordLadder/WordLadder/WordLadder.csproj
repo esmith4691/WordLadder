@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileHelper.cs" />
+    <Compile Include="ShortestPathFinder.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Program.cs" />
