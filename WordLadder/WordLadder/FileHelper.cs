@@ -35,12 +35,12 @@ namespace WordLadder
             {
             }
 
-            return GetValidWords(content).Distinct();
+            return GetWords(content).Distinct();
         }
 
-        private static IEnumerable<string> GetValidWords(IEnumerable<string> content)
+        private static IEnumerable<string> GetWords(IEnumerable<string> content)
         {
-            return content.Select(w => w.Trim()).Where(w => !string.IsNullOrEmpty(w) && w.IsValidWord());
+            return content.Select(w => w.Trim()).Where(w => !string.IsNullOrEmpty(w));
         }
         
     }

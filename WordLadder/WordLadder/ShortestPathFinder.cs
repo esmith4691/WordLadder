@@ -15,7 +15,12 @@ namespace WordLadder
         private ShortestPathFinder() { }
         internal ShortestPathFinder(IEnumerable<string> words)
         {
-            FillBuckets(words.Select(w => w.ToUpper()).ToList());
+            FillBuckets(FilterToValidWords(words).ToList());
+        }
+
+        internal static IEnumerable<string> FilterToValidWords(IEnumerable<string> words)
+        {
+            return words.Where(w => w.IsValidWord()).Select(w => w.ToUpper());
         }
 
         internal IEnumerable<string> FindShortestPath(string startWord, string endWord)

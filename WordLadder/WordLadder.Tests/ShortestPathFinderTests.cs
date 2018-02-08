@@ -23,6 +23,15 @@ namespace WordLadder.Tests
         }
 
         [Test]
+        public void Filters_to_valid_words()
+        {
+            var input = new[] { "\\9th", "w sh", "wash", "wish", "wishy", "wise", "wipe", "pipe", "was" };
+            var expectedWords = new[] { "WASH", "WISH", "WISE", "WIPE", "PIPE" };
+
+            Assert.AreEqual(expectedWords, ShortestPathFinder.FilterToValidWords(input));
+        }
+
+        [Test]
         public void Returns_empty_collection_when_no_path()
         {
             var sut = new ShortestPathFinder(new[] { "word", "ward", "card", "care" });
