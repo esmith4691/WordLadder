@@ -35,7 +35,7 @@ namespace WordLadder
             {
             }
 
-            return GetValidWords(content).Distinct().Select(w => w.ToUpper());
+            return GetValidWords(content).Distinct();
         }
 
         private static IEnumerable<string> GetValidWords(IEnumerable<string> content)

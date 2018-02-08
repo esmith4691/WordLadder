@@ -14,7 +14,7 @@ namespace WordLadder
         private ShortestPathFinder() { }
         internal ShortestPathFinder(IEnumerable<string> words)
         {
-            this.possibleWords = words;
+            possibleWords = words.Select(w => w.ToUpper());
         }
     }
 }
