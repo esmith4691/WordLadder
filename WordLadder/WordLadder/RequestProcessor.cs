@@ -13,16 +13,19 @@ namespace WordLadder
             if (requestParams == null)
                 return "Invalid parameters: Please check the input and try again:";
 
-            if (requestParams.StartWord == requestParams.EndWord || requestParams.StartWord.IsOneLetterDifferent(requestParams.EndWord))
-                return WriteResult(requestParams.ResultFile, new[] { requestParams.StartWord, requestParams.EndWord });
+            var startWord = requestParams.StartWord;
+            var endWord = requestParams.EndWord;
+
+            if (startWord == endWord || startWord.IsOneLetterDifferent(endWord))
+                return WriteResult(requestParams.ResultFile, new[] { startWord, endWord });
 
             var words = FileHelper.LoadWordsFrom(requestParams.DictionaryFile);
             if (!words.Any())
                 return $"No values loaded for dictionary: Please check file '{requestParams.DictionaryFile}'";
 
-            var result = new ShortestPathFinder(words).FindShortestPath(requestParams.StartWord, requestParams.EndWord);
+            var result = new ShortestPathFinder(words).FindShortestPath(startWord, endWord);
             if (!result.Any())
-                return $"No path found between {requestParams.StartWord} and {requestParams.EndWord}";
+                return $"No path found between {startWord} and {endWord}";
 
             return WriteResult(requestParams.ResultFile, result);
         }
